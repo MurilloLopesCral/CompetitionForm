@@ -6,11 +6,6 @@ import { TableRow } from "./TableRow";
 
 export const Form: React.FC = () => {
     const [isDocumentOnlyMode, setIsDocumentOnlyMode] = useState(false);
-    const [codigoConcorrente, setCodigoConcorrente] = useState("");
-    const [codigoCral, setCodigoCral] = useState("");
-    const [precoConcorrente, setPrecoConcorrente] = useState("");
-    const [precoCral, setPrecoCral] = useState("");
-    const [comentario, setComentario] = useState("");
 
     const [rows, setRows] = useState<TableRowType[]>([
         {
@@ -180,7 +175,8 @@ export const Form: React.FC = () => {
                             </div>
                         </div>
                         <h1 className="text-3xl font-bold text-white mb-2">
-                            Formulário de Cadastro
+                            Formulário de Cadastro de informações de
+                            concorrentes
                         </h1>
                         <p className="text-slate-400">
                             Preencha os dados e anexe o arquivo PDF obrigatório
