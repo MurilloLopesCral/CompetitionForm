@@ -5,6 +5,8 @@ export interface TableRow {
     codigoCral: string;
     precoCral: string;
     comentario: string;
+    nomeConcorrente?: string;
+    grupoIdCliente?: string;
 }
 
 export interface FormData {
