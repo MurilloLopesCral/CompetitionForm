@@ -67,7 +67,7 @@ export function useSubmitForm() {
             }
 
             const response = await fetch(
-                "https://crallabs.app.n8n.cloud/webhook-test/forms",
+                "https://crallabs.app.n8n.cloud/webhook/forms",
                 {
                     method: "POST",
                     body: formData
