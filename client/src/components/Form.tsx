@@ -386,13 +386,13 @@ export const Form: React.FC = () => {
                                                 Qtd.
                                             </th>
                                             <th className="text-left p-4 text-blue-400 font-semibold">
-                                                Preço Concorrente
+                                                Preço Concorrente (Sem IPI | ST)
                                             </th>
                                             <th className="text-left p-4 text-blue-400 font-semibold">
                                                 Código CRAL
                                             </th>
                                             <th className="text-left p-4 text-blue-400 font-semibold">
-                                                Preço CRAL
+                                                Preço CRAL (Sem IPI | ST)
                                             </th>
                                             <th className="text-left p-4 text-blue-400 font-semibold">
                                                 Comentário
