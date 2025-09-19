@@ -1,15 +1,14 @@
 import { Building2, Loader, Plus, RotateCcw, Send } from "lucide-react";
 import React, { useEffect, useMemo, useState } from "react";
-import { useToast } from "../hooks/useToast";
+import { CONSULTORAS as CONSULTORAS_LIST, REGIOES } from "../constants/options";
 import { useSubmitForm } from "../hooks/useSubmitForm";
+import { useToast } from "../hooks/useToast";
 import { FormErrors, TableRow as TableRowType } from "../types/FormTypes";
 import { FileUpload } from "./FileUpload";
 import { TableRow } from "./TableRow";
-import { CONSULTORAS as CONSULTORAS_LIST, REGIOES } from "../constants/options";
-import { Button } from "./ui/Button";
-import { TextInput } from "./ui/TextInput";
 import { Select } from "./ui/Select";
 import { SuggestionsList } from "./ui/SuggestionsList";
+import { TextInput } from "./ui/TextInput";
 import { ToggleSwitch } from "./ui/ToggleSwitch";
 
 export const Form: React.FC = () => {
@@ -20,6 +19,7 @@ export const Form: React.FC = () => {
         {
             id: "1",
             codigoConcorrente: "",
+            qtd: 0,
             precoConcorrente: "",
             codigoCral: "",
             precoCral: "",
@@ -55,38 +55,6 @@ export const Form: React.FC = () => {
         }
     }, [tipoDocumento]);
 
-    // Sugestões de nomes de consultoras
-    const CONSULTORAS = useMemo(
-        () => [
-            "RODRIGO",
-            "MIRIAN",
-            "ROSANGELA",
-            "LILIANE",
-            "ERIKA",
-            "MARCIA",
-            "DENISE",
-            "VERA",
-            "ANGELA",
-            "MADALENA",
-            "ISABEL",
-            "NANCY",
-            "MANUELA",
-            "LEILA",
-            "ALICE",
-            "VANESSA",
-            "STEPHANIE",
-            "VALERIA",
-            "CLAUDIA",
-            "BIA MARTIN",
-            "LAYS",
-            "BRUNA POLI",
-            "ANA CAROLINA",
-            "KAREN",
-            "GRAZIELE",
-            "MARIA EUNICE"
-        ],
-        []
-    );
     const [showConsultoraSuggestions, setShowConsultoraSuggestions] =
         useState(false);
     const filteredConsultoras = useMemo(() => {
@@ -100,6 +68,7 @@ export const Form: React.FC = () => {
     const createNewRow = (): TableRowType => ({
         id: Date.now().toString(),
         codigoConcorrente: "",
+        qtd: 0,
         precoConcorrente: "",
         codigoCral: "",
         precoCral: "",
@@ -136,6 +105,7 @@ export const Form: React.FC = () => {
         setRows([
             {
                 id: "1",
+                qtd: 0,
                 codigoConcorrente: "",
                 precoConcorrente: "",
                 codigoCral: "",
@@ -209,6 +179,7 @@ export const Form: React.FC = () => {
                 setRows([
                     {
                         id: "1",
+                        qtd: 0,
                         codigoConcorrente: "",
                         precoConcorrente: "",
                         codigoCral: "",
@@ -410,6 +381,9 @@ export const Form: React.FC = () => {
                                             </th>
                                             <th className="text-left p-4 text-blue-400 font-semibold">
                                                 Código Concorrente
+                                            </th>
+                                            <th className="text-left p-4 text-blue-400 font-semibold">
+                                                Qtd.
                                             </th>
                                             <th className="text-left p-4 text-blue-400 font-semibold">
                                                 Preço Concorrente

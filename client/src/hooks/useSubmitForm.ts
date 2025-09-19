@@ -46,6 +46,7 @@ export function useSubmitForm() {
                         : rows.map((row) => ({
                               codigoConcorrente: row.codigoConcorrente,
                               precoConcorrente: row.precoConcorrente,
+                              quantidade: row.qtd,
                               codigoCral: row.codigoCral,
                               precoCral: row.precoCral,
                               comentario: row.comentario,

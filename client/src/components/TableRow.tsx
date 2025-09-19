@@ -48,19 +48,40 @@ export const TableRow: React.FC<TableRowProps> = ({
         <>
             <tr className="border-b border-slate-700 hover:bg-slate-800/50 transition-colors">
                 <td className="p-3">
-                    <span className="text-blue-400 font-medium">{index + 1}</span>
+                    <span className="text-blue-400 font-medium">
+                        {index + 1}
+                    </span>
                 </td>
                 <td className="p-3">
                     <input
                         type="text"
                         value={row.codigoConcorrente}
                         onChange={(e) =>
-                            onUpdateRow(row.id, "codigoConcorrente", e.target.value)
+                            onUpdateRow(
+                                row.id,
+                                "codigoConcorrente",
+                                e.target.value
+                            )
                         }
                         className="w-full px-3 py-2 bg-slate-800 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all"
                         placeholder="Digite o código do concorrente"
                     />
                 </td>
+
+                {/* Novo campo Qtd */}
+                <td className="p-3">
+                    <input
+                        type="number"
+                        min={1}
+                        value={row.qtd || ""}
+                        onChange={(e) =>
+                            onUpdateRow(row.id, "qtd", e.target.value)
+                        }
+                        className="w-24 px-3 py-2 bg-slate-800 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all"
+                        placeholder="Qtd"
+                    />
+                </td>
+
                 <td className="p-3">
                     <input
                         type="text"
@@ -75,7 +96,9 @@ export const TableRow: React.FC<TableRowProps> = ({
                     <input
                         type="text"
                         value={row.codigoCral}
-                        onChange={(e) => onUpdateRow(row.id, "codigoCral", e.target.value)}
+                        onChange={(e) =>
+                            onUpdateRow(row.id, "codigoCral", e.target.value)
+                        }
                         className="w-full px-3 py-2 bg-slate-800 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all"
                         placeholder="Código do CRAL"
                     />
@@ -93,7 +116,9 @@ export const TableRow: React.FC<TableRowProps> = ({
                     <input
                         type="text"
                         value={row.comentario}
-                        onChange={(e) => onUpdateRow(row.id, "comentario", e.target.value)}
+                        onChange={(e) =>
+                            onUpdateRow(row.id, "comentario", e.target.value)
+                        }
                         className="w-full px-3 py-2 bg-slate-800 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all"
                         placeholder="Comentário opcional"
                     />
@@ -124,7 +149,11 @@ export const TableRow: React.FC<TableRowProps> = ({
                                     type="text"
                                     value={row.nomeConcorrente || ""}
                                     onChange={(e) =>
-                                        onUpdateRow(row.id, "nomeConcorrente", e.target.value)
+                                        onUpdateRow(
+                                            row.id,
+                                            "nomeConcorrente",
+                                            e.target.value
+                                        )
                                     }
                                     className="w-full px-3 py-2 bg-slate-800 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all"
                                     placeholder="Digite o nome do concorrente"
@@ -138,7 +167,11 @@ export const TableRow: React.FC<TableRowProps> = ({
                                     type="text"
                                     value={row.grupoIdCliente || ""}
                                     onChange={(e) =>
-                                        onUpdateRow(row.id, "grupoIdCliente", e.target.value)
+                                        onUpdateRow(
+                                            row.id,
+                                            "grupoIdCliente",
+                                            e.target.value
+                                        )
                                     }
                                     className="w-full px-3 py-2 bg-slate-800 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all"
                                     placeholder="Digite o GrupoID do cliente"

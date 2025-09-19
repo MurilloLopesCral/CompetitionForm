@@ -1,6 +1,7 @@
 export interface TableRow {
     id: string;
     codigoConcorrente: string;
+    qtd: number;
     precoConcorrente: string;
     codigoCral: string;
     precoCral: string;
