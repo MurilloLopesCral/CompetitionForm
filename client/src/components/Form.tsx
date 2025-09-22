@@ -76,14 +76,17 @@ export const Form: React.FC = () => {
     });
 
     const isRowComplete = (row: TableRowType): boolean => {
-        const hasCodigo = row.codigoConcorrente.trim() !== "";
         const base =
             row.precoConcorrente.trim() !== "" && row.precoCral.trim() !== "";
+
         if (tipoDocumento === "sem_comprovante") {
             const hasNomeConc = (row.nomeConcorrente || "").trim() !== "";
             const hasGrupoId = (row.grupoIdCliente || "").trim() !== "";
-            return base && hasNomeConc && hasGrupoId;
+            const hasTipoFrete = (row.tipo_frete || "").trim() !== "";
+            return base && hasNomeConc && hasGrupoId && hasTipoFrete;
         }
+
+        const hasCodigo = row.codigoConcorrente.trim() !== "";
         return base && hasCodigo;
     };
 

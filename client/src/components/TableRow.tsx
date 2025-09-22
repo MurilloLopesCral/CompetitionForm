@@ -141,7 +141,7 @@ export const TableRow: React.FC<TableRowProps> = ({
                 <tr className="border-b border-slate-700">
                     <td className="p-3 bg-slate-800/40" colSpan={7}>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <div className="md:col-span-2">
+                            <div className="md:col-span-1">
                                 <label className="block text-slate-300 text-sm mb-1">
                                     Nome do concorrente
                                 </label>
@@ -155,7 +155,7 @@ export const TableRow: React.FC<TableRowProps> = ({
                                             e.target.value
                                         )
                                     }
-                                    className="w-full px-3 py-2 bg-slate-800 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all"
+                                    className="w-full px-3 py-2 bg-slate-800 border border-slate-600 rounded-lg text-white"
                                     placeholder="Digite o nome do concorrente"
                                 />
                             </div>
@@ -173,9 +173,29 @@ export const TableRow: React.FC<TableRowProps> = ({
                                             e.target.value
                                         )
                                     }
-                                    className="w-full px-3 py-2 bg-slate-800 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all"
+                                    className="w-full px-3 py-2 bg-slate-800 border border-slate-600 rounded-lg text-white"
                                     placeholder="Digite o GrupoID do cliente"
                                 />
+                            </div>
+                            <div>
+                                <label className="block text-slate-300 text-sm mb-1">
+                                    Tipo de Frete
+                                </label>
+                                <select
+                                    value={row.tipo_frete || ""}
+                                    onChange={(e) =>
+                                        onUpdateRow(
+                                            row.id,
+                                            "tipo_frete",
+                                            e.target.value
+                                        )
+                                    }
+                                    className="w-full px-3 py-2 bg-slate-800 border border-slate-600 rounded-lg text-white"
+                                >
+                                    <option value="">Selecione</option>
+                                    <option value="CIF">CIF</option>
+                                    <option value="FOB">FOB</option>
+                                </select>
                             </div>
                         </div>
                     </td>

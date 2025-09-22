@@ -8,6 +8,7 @@ export interface TableRow {
     comentario: string;
     nomeConcorrente?: string;
     grupoIdCliente?: string;
+    tipo_frete?: string;
 }
 
 export interface FormData {
