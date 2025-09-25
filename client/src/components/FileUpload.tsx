@@ -1,5 +1,11 @@
 import { FileText, Upload, X } from "lucide-react";
-import React, { useRef } from "react";
+import * as pdfjsLib from "pdfjs-dist";
+import { GlobalWorkerOptions } from "pdfjs-dist";
+import pdfjsWorker from "pdfjs-dist/build/pdf.worker?url";
+import React, { useRef, useState } from "react";
+import { MessageBox } from "./ui/MessageBox"; // ajuste caminho
+
+GlobalWorkerOptions.workerSrc = pdfjsWorker;
 
 interface FileUploadProps {
     file: File | null;
@@ -13,13 +19,37 @@ export const FileUpload: React.FC<FileUploadProps> = ({
     error
 }) => {
     const fileInputRef = useRef<HTMLInputElement>(null);
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-    const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const selectedFile = e.target.files?.[0];
         if (selectedFile && selectedFile.type === "application/pdf") {
-            onFileSelect(selectedFile);
+            try {
+                const arrayBuffer = await selectedFile.arrayBuffer();
+                const pdf = await pdfjsLib.getDocument({ data: arrayBuffer })
+                    .promise;
+                const metaData: any = await pdf.getMetadata();
+                const producer = metaData?.info?.Producer || null;
+
+                if (producer && producer.includes("Microsoft: Print To PDF")) {
+                    setErrorMessage(
+                        "📄 Documento em um formato não permitido (PDF OCR). Por favor, envie o formulário com a opção 'Sem comprovante' preenchendo os dados necessários."
+                    );
+                    if (fileInputRef.current) {
+                        fileInputRef.current.value = "";
+                    }
+                    return;
+                }
+
+                setErrorMessage(null);
+                onFileSelect(selectedFile);
+            } catch (err) {
+                console.error("Erro ao ler metadados do PDF:", err);
+                setErrorMessage(null);
+                onFileSelect(selectedFile);
+            }
         } else if (selectedFile) {
-            alert("Por favor, selecione apenas arquivos PDF.");
+            setErrorMessage("⚠️ Por favor, selecione apenas arquivos PDF.");
             if (fileInputRef.current) {
                 fileInputRef.current.value = "";
             }
@@ -31,6 +61,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
         if (fileInputRef.current) {
             fileInputRef.current.value = "";
         }
+        setErrorMessage(null);
     };
 
     const handleDrop = (e: React.DragEvent) => {
@@ -39,7 +70,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
         if (droppedFile && droppedFile.type === "application/pdf") {
             onFileSelect(droppedFile);
         } else {
-            alert("Por favor, selecione apenas arquivos PDF.");
+            setErrorMessage("⚠️ Por favor, selecione apenas arquivos PDF.");
         }
     };
 
@@ -59,7 +90,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
                     onDrop={handleDrop}
                     onDragOver={handleDragOver}
                     className={`border-2 border-dashed rounded-lg p-8 text-center transition-all cursor-pointer hover:border-blue-400 hover:bg-slate-800/50 ${
-                        error
+                        error || errorMessage
                             ? "border-red-500 bg-red-500/10"
                             : "border-slate-600"
                     }`}
@@ -104,7 +135,9 @@ export const FileUpload: React.FC<FileUploadProps> = ({
                 </div>
             )}
 
-            {error && <p className="text-red-400 text-sm">{error}</p>}
+            {(error || errorMessage) && (
+                <MessageBox type="error" message={errorMessage || error!} />
+            )}
         </div>
     );
 };
