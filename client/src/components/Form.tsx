@@ -1,11 +1,13 @@
-import { Building2, Loader, Plus, RotateCcw, Send } from "lucide-react";
+import { Building2, Info, Loader, Plus, RotateCcw, Send } from "lucide-react";
 import React, { useEffect, useMemo, useState } from "react";
+import { infoMarkdown } from "../constants/infoMarkdown";
 import { CONSULTORAS as CONSULTORAS_LIST, REGIOES } from "../constants/options";
 import { useSubmitForm } from "../hooks/useSubmitForm";
 import { useToast } from "../hooks/useToast";
 import { FormErrors, TableRow as TableRowType } from "../types/FormTypes";
 import { FileUpload } from "./FileUpload";
 import { TableRow } from "./TableRow";
+import { InfoModal } from "./ui/InfoModal";
 import { Select } from "./ui/Select";
 import { SuggestionsList } from "./ui/SuggestionsList";
 import { TextInput } from "./ui/TextInput";
@@ -29,6 +31,8 @@ export const Form: React.FC = () => {
     const [pdfFile, setPdfFile] = useState<File | null>(null);
     const [errors, setErrors] = useState<FormErrors>({});
     const { submitForm, isSubmitting } = useSubmitForm();
+    const [showInfoModal, setShowInfoModal] = useState(false);
+
     const [tipoDocumento, setTipoDocumento] = useState<
         "nota_fiscal" | "sem_comprovante"
     >("nota_fiscal");
@@ -227,6 +231,14 @@ export const Form: React.FC = () => {
                         <p className="text-slate-400">
                             Preencha os dados e anexe o arquivo PDF obrigatório
                         </p>
+                        <button
+                            type="button"
+                            onClick={() => setShowInfoModal(true)}
+                            className="mt-3 flex items-center justify-center mx-auto text-blue-400 hover:text-blue-300 transition-colors"
+                            title="Clique para ver instruções"
+                        >
+                            <Info size={20} />
+                        </button>
                     </div>
 
                     {/* Toggle Mode */}
@@ -507,6 +519,11 @@ export const Form: React.FC = () => {
                     </div>
                 </div>
             </div>
+            <InfoModal
+                isOpen={showInfoModal}
+                onClose={() => setShowInfoModal(false)}
+                content={infoMarkdown}
+            />
         </div>
     );
 };
